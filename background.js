@@ -79,29 +79,27 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       console.log('[Background] 收到 OFFSCREEN_READY');
       break;
     case 'PUNISH_MODE':
-      // 向所有标签页发送惩罚模式消息
-      chrome.tabs.query({}, (tabs) => {
-        tabs.forEach(tab => {
-          if (tab.id) {
-            chrome.tabs.sendMessage(tab.id, { type: 'PUNISH_MODE' }).catch(() => {
-              // 忽略无法发送消息的标签页错误
-            });
-          }
-        });
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const tab = tabs && tabs[0];
+        if (tab && tab.id) {
+          try {
+            chrome.scripting.insertCSS({
+              target: { tabId: tab.id },
+              files: ['content/style.css']
+            }).catch(() => {});
+          } catch (e) {}
+          chrome.tabs.sendMessage(tab.id, { type: 'PUNISH_MODE' }).catch(() => {});
+        }
       });
       try { chrome.runtime.sendMessage({ type: 'PUNISH_MODE', from: 'background_broadcast' }); } catch (e) {}
       break;
       
     case 'RESTORE_VISION':
-      // 向所有标签页发送恢复消息
-      chrome.tabs.query({}, (tabs) => {
-        tabs.forEach(tab => {
-          if (tab.id) {
-            chrome.tabs.sendMessage(tab.id, { type: 'RESTORE_VISION' }).catch(() => {
-              // 忽略无法发送消息的标签页错误
-            });
-          }
-        });
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const tab = tabs && tabs[0];
+        if (tab && tab.id) {
+          chrome.tabs.sendMessage(tab.id, { type: 'RESTORE_VISION' }).catch(() => {});
+        }
       });
       try { chrome.runtime.sendMessage({ type: 'RESTORE_VISION', from: 'background_broadcast' }); } catch (e) {}
       break;
@@ -118,6 +116,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       break;
       
     case 'START_DETECTION':
+      try { chrome.storage.session.set({ shouldDetect: true }); } catch (e) {}
       if (detectionBlocked) {
         console.warn('[Background] 检测被权限阻止，忽略 START_DETECTION');
         chrome.tabs.query({}, (tabs) => {
@@ -154,6 +153,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       
     case 'STOP_DETECTION':
       // 停止眨眼检测
+      try { chrome.storage.session.set({ shouldDetect: false }); } catch (e) {}
       closeOffscreenDocument();
       try { sendResponse({ ok: true }); } catch (e) {}
       break;
@@ -181,6 +181,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       break;
 
     case 'DETECTION_STARTED':
+      try { chrome.storage.session.set({ shouldDetect: true }); } catch (e) {}
       chrome.tabs.query({}, (tabs) => {
         tabs.forEach(tab => {
           if (tab.id) {
@@ -192,6 +193,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       break;
 
     case 'DETECTION_STOPPED':
+      try { chrome.storage.session.set({ shouldDetect: false }); } catch (e) {}
       chrome.tabs.query({}, (tabs) => {
         tabs.forEach(tab => {
           if (tab.id) {

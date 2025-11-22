@@ -17,6 +17,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // 定期更新状态
     setInterval(updateStatus, 1000);
 
+    try {
+        chrome.storage.session.get(['shouldDetect'], (res) => {
+            isDetecting = !!(res && res.shouldDetect);
+            updateUI();
+            updateStatus();
+        });
+        chrome.storage.onChanged.addListener((changes, area) => {
+            if (area === 'session' && changes.shouldDetect) {
+                isDetecting = !!changes.shouldDetect.newValue;
+                updateUI();
+                updateStatus();
+            }
+        });
+    } catch (e) {}
+
     const params = new URLSearchParams(location.search);
     if (params.get('mode') === 'permission') {
         permissionMode = true;

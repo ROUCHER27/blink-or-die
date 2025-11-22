@@ -49,6 +49,13 @@ async function init() {
     } catch (e) {
         console.warn('[Offscreen] 发送 OFFSCREEN_READY 失败', e);
     }
+    try {
+        chrome.storage.session.get(['shouldDetect'], (res) => {
+            if (res && res.shouldDetect) {
+                startDetection();
+            }
+        });
+    } catch (e) {}
 }
 
 // 开始检测
