@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blink or Die - 视力保护的终极方案</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- 引入 Noto Serif SC (宋体/衬线) 用于标题，Noto Sans SC (黑体/无衬线) 用于正文 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-paper: #F0F0EB; /* Claude 风格的暖灰/纸张色 */
+            --bg-card: #FFFFFF;
+            --text-primary: #1F1F1F; /* 柔和的黑色 */
+            --text-secondary: #585858;
+            --accent-clay: #C45C44; /* 陶土红，替代高饱和红 */
+            --accent-sand: #D7D3C8;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-paper);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: filter 2s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        /* 视觉惩罚模拟类 - 保持功能但调整质感 */
+        .punishment-mode {
+            filter: blur(8px) sepia(0.6) contrast(1.2) brightness(0.9) !important;
+            pointer-events: none;
+        }
+
+        .punishment-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(196, 92, 68, 0.1); /* 淡淡的陶土红 */
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .punishment-mode + .punishment-overlay {
+            opacity: 1;
+        }
+
+        /* 按钮样式 - 极简胶囊形 */
+        .btn-primary {
+            background-color: #2D2D2D;
+            color: #F5F5F0;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #000000;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #CCC;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            border-color: #000;
+            background-color: #fff;
+        }
+
+        /* 卡片效果 - 极其克制的阴影 */
+        .feature-card {
+            background: white;
+            border: 1px solid transparent;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .feature-card:hover {
+            border-color: #E0E0E0;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.03);
+        }
+
+        /* 代码块样式 */
+        .code-block {
+            background: #FAfaf9;
+            border: 1px solid #e5e5e5;
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+        }
+        
+        /* 选中文字颜色 */
+        ::selection {
+            background: #E3E0D6;
+            color: #000;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- 模拟惩罚的覆盖层 - 更加优雅的警告 -->
+    <div class="punishment-overlay">
+        <div class="text-center p-12 bg-white/90 rounded-lg shadow-2xl border border-red-100 max-w-md">
+            <div class="serif text-3xl font-bold text-[#C45C44] mb-4">视界模糊</div>
+            <p class="text-gray-600 font-light">您已超过 8 秒未眨眼。<br>请通过自然的眨眼动作恢复清晰视野。</p>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="w-full py-6 px-6 md:px-12 flex justify-between items-center relative z-50">
+        <div class="flex items-center gap-3">
+            <!-- 简单的几何图形Logo -->
+            <div class="w-6 h-6 bg-[#C45C44] rounded-full"></div>
+            <span class="serif text-xl font-bold tracking-tight text-gray-900">Blink or Die</span>
+        </div>
+        
+        <div class="hidden md:flex space-x-10 text-sm font-medium text-gray-500">
+            <a href="#philosophy" class="hover:text-black transition">设计哲学</a>
+            <a href="#features" class="hover:text-black transition">功能特性</a>
+            <a href="#install" class="hover:text-black transition">立即使用</a>
+        </div>
+
+        <a href="https://github.com/ROUCHER27/blink-or-die" target="_blank" class="hidden md:flex items-center gap-2 text-sm font-medium hover:opacity-70 transition">
+            <span>GitHub</span>
+            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </a>
+    </nav>
+
+    <!-- Hero 区域 - 经典的 Claude 式排版 -->
+    <header class="container mx-auto px-6 md:px-12 py-24 md:py-40 max-w-5xl">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-12">
+            <div class="md:w-3/5">
+                <div class="inline-block mb-6 text-xs font-bold tracking-widest uppercase text-[#C45C44] border-b border-[#C45C44] pb-1">
+                    Chrome Extension v1.0
+                </div>
+                <h1 class="serif text-5xl md:text-7xl leading-[1.1] font-bold text-gray-900 mb-8">
+                    如果不眨眼，<br>
+                    就别想看清屏幕。
+                </h1>
+                <p class="text-xl text-gray-600 leading-relaxed font-light max-w-lg">
+                    一个激进但优雅的视力保护方案。利用本地 AI 识别面部动作，强制干预您的用眼习惯。
+                </p>
+                
+                <div class="flex flex-wrap items-center gap-4 mt-10">
+                    <a href="#install" class="btn-primary px-8 py-4 rounded-full font-medium text-lg flex items-center gap-2">
+                        添加到 Chrome
+                    </a>
+                    <button onclick="simulatePunishment()" class="btn-secondary px-8 py-4 rounded-full font-medium text-lg flex items-center gap-2 group">
+                        <span class="group-hover:text-[#C45C44] transition-colors">体验视觉惩罚</span>
+                        <i data-lucide="eye-off" class="w-4 h-4 group-hover:text-[#C45C44] transition-colors"></i>
+                    </button>
+                </div>
+                <p class="mt-4 text-xs text-gray-400 ml-2">* 点击体验按钮可模拟屏幕模糊效果</p>
+            </div>
+
+            <!-- 抽象图形装饰 -->
+            <div class="md:w-2/5 relative hidden md:block">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-[#EBE6DC] rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse"></div>
+                <div class="absolute bottom-0 left-10 w-72 h-72 bg-[#E0Ddd5] rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
+                <!-- 简单的演示图示 -->
+                <div class="relative z-10 border border-gray-200 bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-4 mb-4 border-b border-gray-100 pb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                        <div class="ml-auto text-xs text-gray-400 font-mono">monitoring...</div>
+                    </div>
+                    <div class="space-y-3 opacity-40">
+                        <div class="h-2 bg-gray-200 rounded w-3/4"></div>
+                        <div class="h-2 bg-gray-200 rounded w-1/2"></div>
+                        <div class="h-2 bg-gray-200 rounded w-full"></div>
+                        <div class="h-2 bg-gray-200 rounded w-5/6"></div>
+                    </div>
+                    <!-- 浮动的状态标签 -->
+                    <div class="absolute -right-4 top-1/2 bg-[#1F1F1F] text-white text-xs py-2 px-4 rounded shadow-lg">
+                        Eyes: Open (0.8s)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 哲学/痛点 - 杂志排版风格 -->
+    <section id="philosophy" class="py-24 border-t border-gray-200">
+        <div class="container mx-auto px-6 md:px-12 max-w-6xl">
+            <div class="grid md:grid-cols-3 gap-16">
+                <div>
+                    <h3 class="serif text-2xl font-bold mb-4">屏幕疲劳</h3>
+                    <p class="text-gray-600 font-light leading-relaxed">
+                        研究表明，长时间注视电子屏幕会导致眨眼频率降低 66%。这种无意识的行为是现代干眼症的主要成因。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="serif text-2xl font-bold mb-4">强制干预</h3>
+                    <p class="text-gray-600 font-light leading-relaxed">
+                        温和的弹窗提醒往往被用户无视。Blink or Die 采取更直接的策略：如果您不眨眼，我们将逐渐剥夺您的清晰视野。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="serif text-2xl font-bold mb-4">隐私至上</h3>
+                    <p class="text-gray-600 font-light leading-relaxed">
+                        我们理解您对摄像头的顾虑。所有面部识别计算均在浏览器本地完成，没有任何图像数据会被上传到云端。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能特性 - 极简网格 -->
+    <section id="features" class="py-24 bg-white">
+        <div class="container mx-auto px-6 md:px-12 max-w-6xl">
+            <div class="mb-16">
+                <h2 class="serif text-4xl md:text-5xl font-bold mb-6">功能特性</h2>
+                <div class="h-1 w-20 bg-[#C45C44]"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature Card -->
+                <div class="feature-card p-8 rounded-xl">
+                    <div class="w-10 h-10 mb-6 text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                        </svg>
+                    </div>
+                    <h3 class="serif text-xl font-bold mb-3 text-gray-900">MediaPipe AI</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">集成 Google MediaPipe Face Landmarker，以毫秒级精度捕捉眼部细微动作。</p>
+                </div>
+
+                <div class="feature-card p-8 rounded-xl">
+                    <div class="w-10 h-10 mb-6 text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="serif text-xl font-bold mb-3 text-gray-900">8秒法则</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">智能倒计时系统。一旦超过 8 秒未检测到有效眨眼，屏幕将开始逐渐模糊。</p>
+                </div>
+
+                <div class="feature-card p-8 rounded-xl">
+                    <div class="w-10 h-10 mb-6 text-gray-800">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                        </svg>
+                    </div>
+                    <h3 class="serif text-xl font-bold mb-3 text-gray-900">即时恢复</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">无需任何手动操作。只要检测到一次完整的眨眼，清晰视野瞬间回归。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 安装指南 - 文档风格 -->
+    <section id="install" class="py-24">
+        <div class="container mx-auto px-6 md:px-12 max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="serif text-3xl md:text-4xl font-bold mb-4">开始使用</h2>
+                <p class="text-gray-500 font-light">目前支持 Chrome 桌面版浏览器 (Manifest V3)</p>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-2xl p-8 md:p-12 shadow-sm">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="bg-[#1F1F1F] text-white text-xs font-bold px-2 py-1 rounded">推荐</div>
+                    <h3 class="serif text-xl font-bold">开发者模式安装</h3>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#F0F0EB] flex items-center justify-center text-sm font-bold font-serif">1</div>
+                        <div class="flex-grow">
+                            <p class="mb-2 text-sm font-medium text-gray-900">下载源代码</p>
+                            <div class="code-block p-4 rounded text-xs text-gray-600 overflow-x-auto">
+                                git clone git@github.com:ROUCHER27/blink-or-die.git
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#F0F0EB] flex items-center justify-center text-sm font-bold font-serif">2</div>
+                        <div class="flex-grow">
+                            <p class="mb-2 text-sm font-medium text-gray-900">加载扩展</p>
+                            <p class="text-sm text-gray-500 leading-relaxed">
+                                在 Chrome 地址栏输入 <code class="bg-gray-100 px-1 rounded">chrome://extensions</code>，开启右上角的 <strong>"开发者模式"</strong>，然后点击 <strong>"加载已解压的扩展程序"</strong> 并选择项目文件夹。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 pt-8 border-t border-gray-100 text-center">
+                    <p class="text-sm text-gray-500 mb-4">或者下载打包好的文件</p>
+                    <button class="text-sm font-bold text-gray-900 border-b-2 border-gray-900 hover:text-[#C45C44] hover:border-[#C45C44] transition-colors pb-1">
+                        下载 .crx 安装包
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - 极简 -->
+    <footer class="py-12 border-t border-gray-200 bg-white">
+        <div class="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex flex-col md:flex-row items-center gap-2 md:gap-8">
+                <span class="serif font-bold text-lg tracking-tight">Blink or Die</span>
+                <span class="text-xs text-gray-400">© 2024 Open Source Project. MIT License.</span>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-gray-500 hover:text-black transition text-sm">GitHub</a>
+                <a href="#" class="text-gray-500 hover:text-black transition text-sm">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function simulatePunishment() {
+            const body = document.body;
+            if (body.classList.contains('punishment-mode')) return;
+
+            body.classList.add('punishment-mode');
+            setTimeout(() => {
+                body.classList.remove('punishment-mode');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
