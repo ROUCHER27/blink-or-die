@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="eyeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="pupilGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#333333;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- 背景圆圈 -->
+  <circle cx="64" cy="64" r="60" fill="url(#eyeGradient)" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- 眼睛外轮廓 -->
+  <ellipse cx="64" cy="64" rx="35" ry="25" fill="#ffffff" opacity="0.9"/>
+  
+  <!-- 瞳孔 -->
+  <circle cx="64" cy="64" r="15" fill="url(#pupilGradient)"/>
+  
+  <!-- 高光 -->
+  <circle cx="68" cy="60" r="4" fill="#ffffff" opacity="0.8"/>
+  <circle cx="70" cy="58" r="2" fill="#ffffff" opacity="0.6"/>
+  
+  <!-- 警告符号 -->
+  <g transform="translate(100, 20)">
+    <circle cx="0" cy="0" r="12" fill="#ff4444" stroke="#ffffff" stroke-width="1"/>
+    <text x="0" y="4" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">!</text>
+  </g>
+  
+  <!-- 装饰性元素 -->
+  <path d="M 20 64 Q 30 45, 40 64" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M 108 64 Q 98 45, 88 64" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.3"/>
+</svg>

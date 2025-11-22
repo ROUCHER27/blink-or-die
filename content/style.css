@@ -1,0 +1,159 @@
+/* Blink or Die - 视觉惩罚样式 */
+
+/* 基础惩罚模式 - 模糊+红色调 */
+.bod-punishment-mode {
+    filter: blur(6px) sepia(80%) hue-rotate(-50deg) brightness(0.7) !important;
+    transition: filter 2s ease-in-out !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    animation: bod-eye-strain 2s ease-in-out infinite !important;
+}
+
+/* 模拟眼睛干涩的动画效果 */
+@keyframes bod-eye-strain {
+    0% { 
+        filter: blur(3px) sepia(40%) hue-rotate(-25deg) brightness(0.85) !important;
+    }
+    25% { 
+        filter: blur(4px) sepia(55%) hue-rotate(-35deg) brightness(0.8) !important;
+    }
+    50% { 
+        filter: blur(5px) sepia(70%) hue-rotate(-45deg) brightness(0.75) !important;
+    }
+    75% { 
+        filter: blur(6px) sepia(80%) hue-rotate(-50deg) brightness(0.7) !important;
+    }
+    100% { 
+        filter: blur(6px) sepia(80%) hue-rotate(-50deg) brightness(0.7) !important;
+    }
+}
+
+/* 惩罚模式下所有子元素 */
+.bod-punishment-mode * {
+    pointer-events: none !important;
+    user-select: none !important;
+}
+
+/* 警告覆盖层 */
+.bod-warning-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(255, 0, 0, 0.1) !important;
+    z-index: 999999 !important;
+    pointer-events: none !important;
+    animation: bod-warning-pulse 2s ease-in-out infinite !important;
+}
+
+/* 警告脉冲动画 */
+@keyframes bod-warning-pulse {
+    0%, 100% { 
+        opacity: 0.1; 
+        background: rgba(255, 0, 0, 0.1) !important;
+    }
+    50% { 
+        opacity: 0.3; 
+        background: rgba(255, 50, 50, 0.2) !important;
+    }
+}
+
+/* 眨眼提醒框 */
+.bod-blink-reminder {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(200, 0, 0, 0.9)) !important;
+    color: white !important;
+    padding: 15px 20px !important;
+    border-radius: 12px !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    z-index: 1000000 !important;
+    animation: bod-reminder-bounce 1s ease-in-out infinite !important;
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(10px) !important;
+    min-width: 200px !important;
+    text-align: center !important;
+    line-height: 1.4 !important;
+}
+
+/* 提醒框弹跳动画 */
+@keyframes bod-reminder-bounce {
+    0%, 100% { 
+        transform: translateY(0) scale(1) !important;
+    }
+    50% { 
+        transform: translateY(-8px) scale(1.05) !important;
+    }
+}
+
+/* 特殊效果 - 闪烁边框 */
+.bod-blink-reminder::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -3px !important;
+    left: -3px !important;
+    right: -3px !important;
+    bottom: -3px !important;
+    background: linear-gradient(45deg, #ff0000, #ff6600, #ff0000) !important;
+    border-radius: 15px !important;
+    z-index: -1 !important;
+    animation: bod-border-flash 1.5s linear infinite !important;
+}
+
+/* 边框闪烁动画 */
+@keyframes bod-border-flash {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* 文字闪烁效果 */
+.bod-blink-reminder::after {
+    content: '⚠️' !important;
+    position: absolute !important;
+    top: -10px !important;
+    left: -10px !important;
+    font-size: 24px !important;
+    animation: bod-icon-spin 2s linear infinite !important;
+}
+
+/* 图标旋转动画 */
+@keyframes bod-icon-spin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* 页面加载时的过渡效果 */
+body:not(.bod-punishment-mode) {
+    transition: filter 0.5s ease-out !important;
+}
+
+/* 针对特定网站元素的优化 */
+.bod-punishment-mode img,
+.bod-punishment-mode video {
+    filter: blur(8px) sepia(90%) hue-rotate(-60deg) !important;
+}
+
+.bod-punishment-mode input,
+.bod-punishment-mode textarea,
+.bod-punishment-mode select {
+    opacity: 0.3 !important;
+    filter: blur(4px) !important;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .bod-blink-reminder {
+        top: 10px !important;
+        right: 10px !important;
+        left: 10px !important;
+        font-size: 14px !important;
+        padding: 12px 16px !important;
+        text-align: center !important;
+    }
+}

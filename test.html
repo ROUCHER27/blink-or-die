@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blink or Die - 测试页面</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .test-section h2 {
+            color: #ffeb3b;
+            margin-top: 0;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-list li:before {
+            content: "✅ ";
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .warning-box {
+            background: rgba(255, 152, 0, 0.2);
+            border: 2px solid #ff9800;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .warning-box h3 {
+            color: #ffeb3b;
+            margin-top: 0;
+        }
+        
+        .demo-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+        .eye-care-tips {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .eye-care-tips h3 {
+            color: #a5d6a7;
+            margin-top: 0;
+        }
+        
+        .countdown-timer {
+            text-align: center;
+            font-size: 3em;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            margin: 20px 0;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-active {
+            background: #4CAF50;
+        }
+        
+        .status-inactive {
+            background: #f44336;
+            animation: none;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👁️ Blink or Die</h1>
+        <p class="subtitle">干眼症拯救者 - 视力保护扩展测试页面</p>
+        
+        <div class="warning-box">
+            <h3>⚠️ 扩展测试说明</h3>
+            <p>请确保已安装并启用了Blink or Die扩展</p>
+            <p>点击扩展图标开始眨眼检测</p>
+        </div>
+        
+        <div class="countdown-timer" id="countdown">
+            等待检测...
+        </div>
+        
+        <div class="test-section">
+            <h2>🎯 功能测试</h2>
+            <ul class="feature-list">
+                <li>眨眼检测：盯着屏幕，3秒内不眨眼试试</li>
+                <li>视觉惩罚：体验屏幕逐渐模糊变红的效果</li>
+                <li>即时恢复：眨一下眼，屏幕立即恢复清晰</li>
+                <li>循环检测：系统会持续监控你的眨眼频率</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>📖 测试文本</h2>
+            <p class="demo-text">
+                这是一段用于测试的文本。当你长时间盯着屏幕阅读时，你的眨眼频率会显著降低，
+                这可能导致眼睛干涩和疲劳。Blink or Die扩展会强制你保持正常的眨眼频率，
+                从而保护你的视力健康。请尝试连续阅读这段文字而不眨眼，体验扩展的效果。
+            </p>
+            <p class="demo-text">
+                研究表明，正常情况下人每分钟眨眼15-20次，但使用电脑时可能降至5-7次。
+                这种减少会导致泪液蒸发过快，引发干眼症状。我们的扩展通过AI技术实时监测你的眨眼行为，
+                在适当的时候提醒你眨眼，帮助维持眼部健康。
+            </p>
+        </div>
+        
+        <div class="eye-care-tips">
+            <h3>💡 护眼小贴士</h3>
+            <ul>
+                <li>遵循20-20-20法则：每20分钟看20英尺外的物体20秒</li>
+                <li>保持适当的屏幕距离：50-70厘米</li>
+                <li>调整屏幕亮度，避免过亮或过暗</li>
+                <li>确保室内光线充足，减少屏幕反光</li>
+                <li>使用Blink or Die扩展，保持正常眨眼频率</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="#" class="button" onclick="startExtensionTest()">开始测试扩展</a>
+        </div>
+    </div>
+    
+    <script>
+        // 倒计时功能
+        let startTime = Date.now();
+        let isDetecting = false;
+        
+        function updateCountdown() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const remaining = Math.max(0, 3 - elapsed);
+            
+            const countdownEl = document.getElementById('countdown');
+            
+            if (isDetecting) {
+                if (remaining > 0) {
+                    countdownEl.textContent = `${remaining}秒`;
+                    countdownEl.style.color = remaining <= 5 ? '#f44336' : '#ffeb3b';
+                } else {
+                    countdownEl.textContent = '惩罚模式！';
+                    countdownEl.style.color = '#f44336';
+                }
+            } else {
+                countdownEl.textContent = '等待检测...';
+                countdownEl.style.color = '#ffeb3b';
+            }
+        }
+        
+        // 模拟扩展状态
+        function simulateExtension() {
+            isDetecting = true;
+            startTime = Date.now();
+            
+            // 模拟眨眼检测
+            setTimeout(() => {
+                // 模拟眨眼，重置倒计时
+                startTime = Date.now();
+                console.log('模拟眨眼检测');
+            }, Math.random() * 10000 + 5000); // 5-15秒随机眨眼
+        }
+        
+        function ensureCameraAccess() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                return Promise.reject(new Error('UNSUPPORTED'));
+            }
+            if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+                return Promise.reject(new Error('INSECURE_CONTEXT'));
+            }
+            return navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+                stream.getTracks().forEach(t => t.stop());
+                return true;
+            }).catch(err => {
+                return Promise.reject(err);
+            });
+        }
+        
+        function connectToExtension(timeoutMs = 2000) {
+            return new Promise((resolve) => {
+                let settled = false;
+                function onMessage(event) {
+                    const d = event.data;
+                    if (d && d.source === 'blink-or-die' && d.type === 'BOD_PONG') {
+                        window.removeEventListener('message', onMessage);
+                        if (!settled) {
+                            settled = true;
+                            resolve(true);
+                        }
+                    }
+                }
+                window.addEventListener('message', onMessage);
+                window.postMessage({ source: 'test-page', type: 'BOD_PING' }, '*');
+                setTimeout(() => {
+                    if (!settled) {
+                        window.removeEventListener('message', onMessage);
+                        settled = true;
+                        resolve(false);
+                    }
+                }, timeoutMs);
+            });
+        }
+        
+        async function startExtensionTest() {
+            try {
+                await ensureCameraAccess();
+            } catch (err) {
+                let tip = '摄像头权限可能需要在页面或系统设置中允许。';
+                if (err && err.message === 'INSECURE_CONTEXT') {
+                    tip = '当前页面不是安全上下文，可能无法直接访问摄像头，但扩展可在其上下文中运行。建议通过 http://localhost 或 http://127.0.0.1 访问。';
+                } else if (err && err.message === 'UNSUPPORTED') {
+                    tip = '浏览器不支持页面摄像头 API，请使用最新的 Chrome。扩展仍可尝试运行。';
+                }
+                alert(tip);
+            }
+            const connected = await connectToExtension();
+            if (connected) {
+                window.postMessage({ source: 'test-page', type: 'BOD_START_DETECTION' }, '*');
+                alert('扩展已连接并已请求开始检测');
+            } else {
+                alert('未检测到扩展页面桥接，已进入模拟模式');
+                simulateExtension();
+            }
+        }
+        
+        // 定期更新倒计时
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        window.addEventListener('message', (event) => {
+            const d = event.data;
+            if (!d) return;
+            if (d.source === 'blink-or-die' && d.type === 'BOD_BLINK_DETECTED') {
+                startTime = Date.now();
+                console.log('检测到眨眼');
+            } else if (d.source === 'blink-or-die' && d.type === 'BOD_DETECTION_STARTED') {
+                isDetecting = true;
+                startTime = Date.now();
+                console.log('[Test] 检测已启动');
+            } else if (d.source === 'blink-or-die' && d.type === 'BOD_DETECTION_STOPPED') {
+                isDetecting = false;
+                console.log('[Test] 检测已停止');
+            } else if (d.source === 'blink-or-die' && d.type === 'BOD_ERROR') {
+                const msg = d.payload && d.payload.message ? d.payload.message : '未知错误';
+                console.error('[Test] 检测错误:', d.payload);
+                alert(`扩展检测错误: ${msg}`);
+                if (d.payload && d.payload.name === 'NotAllowedError') {
+                    window.postMessage({ source: 'test-page', type: 'BOD_REQUEST_PERMISSION' }, '*');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

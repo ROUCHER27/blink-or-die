@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blink Detection - Offscreen</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        #video {
+            width: 320px;
+            height: 240px;
+            border: 2px solid #333;
+            border-radius: 8px;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            background: #333;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blink Detection - Offscreen Document</h1>
+    <div class="status" id="status">等待启动...</div>
+    <video id="video" autoplay muted playsinline></video>
+    <div class="controls">
+        <button id="startBtn">开始检测</button>
+        <button id="stopBtn" disabled>停止检测</button>
+    </div>
+    <div class="status" id="debug-info">
+        <div>EAR: <span id="ear-value">0.00</span></div>
+        <div>上次眨眼: <span id="last-blink">未检测到</span></div>
+        <div>倒计时: <span id="countdown">3.0</span>s</div>
+        <div>状态: <span id="current-state">正常</span></div>
+    </div>
+    
+    <!-- 引入MediaPipe - 通过模块Shim加载ESM并挂载到window -->
+    <script type="module" src="../lib/vision_shim.js"></script>
+    <script src="offscreen.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blink or Die</title>
+    <style>
+        body {
+            width: 300px;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .status {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .status-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .status-value {
+            font-weight: bold;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-start {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+        
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-stop {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+        }
+        
+        .btn-stop:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 12px;
+            line-height: 1.5;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .info h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #ffeb3b;
+        }
+        
+        .warning {
+            background: rgba(255, 152, 0, 0.2);
+            border: 1px solid rgba(255, 152, 0, 0.5);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 11px;
+            color: #ffeb3b;
+        }
+        
+        .eye-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span class="eye-icon">👁️</span>
+        <h1>Blink or Die</h1>
+        <div class="subtitle">干眼症拯救者</div>
+    </div>
+    
+    <div class="status">
+        <div class="status-item">
+            <span>检测状态:</span>
+            <span class="status-value" id="detection-status">已停止</span>
+        </div>
+        <div class="status-item">
+            <span>上次眨眼:</span>
+            <span class="status-value" id="last-blink-time">未检测</span>
+        </div>
+        <div class="status-item">
+            <span>惩罚状态:</span>
+            <span class="status-value" id="punishment-status">正常</span>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="btn btn-start" id="start-btn">开始</button>
+        <button class="btn btn-stop" id="stop-btn" disabled>停止</button>
+    </div>
+    
+    <div class="info">
+        <h3>📋 使用说明</h3>
+        <p>• 点击"开始"按钮启动眨眼检测</p>
+        <p>• 15秒内未检测到眨眼将触发视觉惩罚</p>
+        <p>• 眨眼一次即可立即恢复清晰视野</p>
+        <p>• 保护眼睛，远离干眼症！</p>
+    </div>
+    
+    <div class="warning">
+        ⚠️ 重要：首次点击"开始"时会请求摄像头权限，请选择"允许"
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>
