@@ -278,11 +278,11 @@ function checkPunishment() {
     const timeSinceLastBlink = now - lastBlinkTime;
     
     // 更新倒计时显示
-    const countdown = Math.max(0, 3 - Math.floor(timeSinceLastBlink / 1000));
+    const countdown = Math.max(0, 8 - Math.floor(timeSinceLastBlink / 1000));
     document.getElementById('countdown').textContent = countdown.toFixed(1);
     
-    // 如果超过15秒没有眨眼，进入惩罚模式
-    if (timeSinceLastBlink > 3000 && !isPunishing) {
+    // 如果超过8秒没有眨眼，进入惩罚模式
+    if (timeSinceLastBlink > 8000 && !isPunishing) {
         chrome.runtime.sendMessage({ type: 'PUNISH_MODE' });
         isPunishing = true;
         updateCurrentState('惩罚模式');
